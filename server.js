@@ -116,10 +116,13 @@ function dbRun(sql, params = []) {
 // ============================================================
 const transporter = nodemailer.createTransport({
   host: MAIL_HOST,
-  port: Number(MAIL_PORT),
-  secure: false,
+  port: 465,
+  secure: true,
   auth: { user: MAIL_USER, pass: MAIL_PASS },
-  tls: { rejectUnauthorized: false }
+  tls: { rejectUnauthorized: false },
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 15000
 });
 
 async function sendOtpEmail(to, code, type = 'register') {
